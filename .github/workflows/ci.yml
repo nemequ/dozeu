@@ -7,8 +7,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Checkout Submodules
+      run: git submodule update --init --recursive
     - name: Build
       run: make
+    - name: example
+      run: ./example
+    - name: example.2bit
+      run: ./example.2bit
+    - name: example.protein
+      run: ./example.protein
+
+  simde_x86:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        isax: ["-march=native", "-msse2", "-msse3", "-mssse3", "-msse4.1", "-msse4.2"]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Checkout Submodules
+      run: git submodule update --init --recursive
+    - name: Build
+      run: make CFLAGS="-O3 -std=c99 -Wall -Wno-unused-variable -Wno-unused-function -Wno-constant-conversion ${{ matrix.isax }}"
     - name: example
       run: ./example
     - name: example.2bit

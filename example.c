@@ -22,6 +22,9 @@
 #include <stdint.h>
 #include <string.h>
 
+#define SIMDE_ENABLE_NATIVE_ALIASES
+#include "simde/simde/x86/sse4.1.h"
+
 #define UNITTEST				1
 #define DZ_FULL_LENGTH_BONUS						/* use full-length bonus feature */
 #define DZ_CIGAR_OP				0x44493d58			/* 'D', 'I', '=', 'X'; the default is 0x04030201 */

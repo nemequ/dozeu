@@ -22,6 +22,9 @@
 #include <stdint.h>
 #include <string.h>
 
+#define SIMDE_ENABLE_NATIVE_ALIASES
+#include "simde/simde/x86/sse4.1.h"
+
 #define UNITTEST				1
 #define DZ_PROTEIN
 #define DZ_MAT_SIZE				32
