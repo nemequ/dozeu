@@ -1,0 +1,17 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: make
+    - name: example
+      run: ./example
+    - name: example.2bit
+      run: ./example.2bit
+    - name: example.protein
+      run: ./example.protein
