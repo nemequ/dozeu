@@ -1,0 +1,52 @@
+language: c
+dist: bionic
+
+jobs:
+  include:
+  - name: "native"
+    env:
+    - CFLAGS="-march=native"
+
+  - name: "sse4.2"
+    env:
+    - CFLAGS="-msse4.2"
+
+  - name: "sse4.1"
+    env:
+    - CFLAGS="-msse4.1"
+
+  - name: "ssse3"
+    env:
+    - CFLAGS="-mssse3"
+
+  - name: "sse3"
+    env:
+    - CFLAGS="-msse3"
+
+  - name: "sse2"
+    env:
+    - CFLAGS="-msse2"
+
+  - name: "aarch64"
+    arch: arm64
+    env:
+    - CFLAGS="-march=armv8-a+simd"s
+
+  - name: "ppc64le"
+    arch: ppc64le
+    env:
+    - CFLAGS="-mcpu=native"
+    addons:
+      apt:
+        packages:
+        - gcc
+        - g++
+
+script:
+- make CFLAGS="-O3 -fopenmp-simd -DSIMDE_ENABLE_OPENMP -std=c99 -Wall -Wno-unused-variable -Wno-unused-function -Wno-constant-conversion ${CFLAGS}"
+- ./example
+- ./example.2bit
+- ./example.protein
+
+notifications:
+  email: false
