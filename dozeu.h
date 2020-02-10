@@ -123,14 +123,19 @@ unittest() { debug("hello"); }
 #define dz_ut_sel(a, b, c)			( (DZ_UNITTEST_INDEX == 0) ? (a) : ((DZ_UNITTEST_INDEX == 1) ? (b) : (c)) )
 
 /* vectorize */
-#ifndef __x86_64__
-#  error "x86_64 is required"
+#if defined(__SIZEOF_POINTER__)
+#  if __SIZEOF_POINTER__ != 8
+#    error "64-bit is required"
+#  endif
+#elif !defined(__x86_64__)
+#  error "64-bit is required"
 #endif
+
 #define __dz_vectorize			/* follow the compiler options */
 
 /* inlining (FIXME: add appropriate __force_inline flag) */
 #define __dz_force_inline			inline
-#ifdef __cplusplus
+#ifdef __cplusplus 	 		
 #  define dz_unused(x)
 #else
 #  define dz_unused(x)				(void)(x)
